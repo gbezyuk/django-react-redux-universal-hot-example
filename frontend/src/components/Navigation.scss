@@ -1,0 +1,19 @@
+.navigation {
+  overflow: hidden;
+  list-style: none;
+  margin: 1em 0;
+
+  li {
+    float: left;
+    list-style: none;
+    margin: 0 1em 0 0;
+  }
+}
+
+.pages {
+
+}
+
+.active {
+  font-weight: bold;
+}
