@@ -18,7 +18,7 @@ const initialState = {
   contents_loaded: {}
 };
 
-export default function categories(state = initialState, action = {}) {
+export default function pages(state = initialState, action = {}) {
   switch (action.type) {
     case PAGES_LOAD:
       return {
