@@ -11,11 +11,11 @@ import {
 const initialState = {
   pages: {},
   active_page_slug: '',
-  active_page_content: '',
   loading_pages: false,
   pages_loaded: false,
   loading_page: false,
-  page_loaded: false
+  page_loaded: false,
+  contents_loaded: {}
 };
 
 export default function categories(state = initialState, action = {}) {
@@ -43,18 +43,20 @@ export default function categories(state = initialState, action = {}) {
       return {
         ...state,
         active_page_slug: action.slug
-      }
+      };
     case PAGE_LOAD:
       return {
         ...state,
         loading_page: true
       };
     case PAGE_LOAD_SUCCESS:
+      let contents_loaded_updated = {...state.contents_loaded};
+      contents_loaded_updated[action.result.slug] = action.result.content;
       return {
         ...state,
         loading_page: false,
         page_loaded: true,
-        active_page_content: action.result.content,
+        contents_loaded: contents_loaded_updated,
         active_page_slug: action.result.slug
       };
     case PAGE_LOAD_FAIL:
@@ -71,4 +73,9 @@ export default function categories(state = initialState, action = {}) {
 
 export function arePagesLoaded(globalState) {
   return globalState.pages && globalState.pages.pages_loaded;
+}
+
+export function isPageCached(globalState, slug) {
+  return globalState.pages && globalState.pages.contents_loaded
+    && globalState.pages.contents_loaded[slug];
 }

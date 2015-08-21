@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {activatePage, loadPage} from '../actions/pages';
+import {loadPage} from '../actions/pages';
 
 @connect(
     state => ({pages: state.pages.pages, active_page_slug: state.pages.active_page_slug}),
-    dispatch => bindActionCreators({activatePage, loadPage}, dispatch))
+    dispatch => bindActionCreators({loadPage}, dispatch))
 
 export default class PagesNavigation extends Component {
   static propTypes = {
@@ -23,8 +23,6 @@ export default class PagesNavigation extends Component {
   activateAndLoadPage = (e) => {
     e.preventDefault();
     let slug = e.target.dataset.slug;
-    // this.props.activatePage(slug);
-    // this.props.loadPage(slug);
     this.context.router.transitionTo('/page/' + slug);
   }
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {loadPage} from '../actions/pages';
+import {loadPage, activatePage} from '../actions/pages';
+import {isPageCached} from '../reducers/pages';
 
-@connect(state => ({content: state.pages.active_page_content}))
+@connect(state => ({slug: state.pages.active_page_slug, contents: state.pages.contents_loaded}))
 export default class Page extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired,
@@ -11,11 +12,15 @@ export default class Page extends React.Component {
 
   static fetchData(store, routerParams) {
     const promises = [];
-    promises.push(store.dispatch(loadPage(routerParams.page_slug)));
+    const slug = routerParams.page_slug;
+    promises.push(store.dispatch(
+      isPageCached(store.getState(), slug) ? activatePage(slug) : loadPage(slug)
+    ));
     return Promise.all(promises);
   }
 
   render() {
-    return <div className="page" dangerouslySetInnerHTML={{__html: this.props.content}} />;
+    let content = this.props.contents[this.props.slug];
+    return <div className="page" dangerouslySetInnerHTML={{__html: content}} />;
   }
 }
