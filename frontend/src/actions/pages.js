@@ -14,7 +14,7 @@ export function loadPages() {
 export function loadPage(slug) {
   return {
     types: [PAGE_LOAD, PAGE_LOAD_SUCCESS, PAGE_LOAD_FAIL],
-    promise: (client) => client.get(`/pages/${slug}.json`)
+    promise: (client) => client.get(`/api/pages/${slug}.json`)
   };
 }
 

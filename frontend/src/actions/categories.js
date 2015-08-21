@@ -14,7 +14,7 @@ export function loadCategories() {
 export function loadCategory(slug) {
   return {
     types: [CATEGORY_LOAD, CATEGORY_LOAD_SUCCESS, CATEGORY_LOAD_FAIL],
-    promise: (client) => client.get(`/categories/${slug}.json`)
+    promise: (client) => client.get(`/api/categories/${slug}.json`)
   };
 }
 
