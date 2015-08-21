@@ -3,16 +3,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {loadPage} from '../actions/pages';
 
-@connect(
-    state => ({pages: state.pages.pages, active_page_slug: state.pages.active_page_slug}),
-    dispatch => bindActionCreators({loadPage}, dispatch))
+@connect(state => ({pages: state.pages.pages, active_page_slug: state.pages.active_page_slug}))
 
 export default class PagesNavigation extends Component {
   static propTypes = {
     pages: PropTypes.array,
     active_page_slug: PropTypes.string,
-    activatePage: PropTypes.func.isRequired,
-    loadPage: PropTypes.func.isRequired
   }
 
   static contextTypes = {
