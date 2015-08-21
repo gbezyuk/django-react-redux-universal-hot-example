@@ -23,8 +23,8 @@ export default class PagesNavigation extends Component {
   activateAndLoadPage = (e) => {
     e.preventDefault();
     let slug = e.target.dataset.slug;
-    this.props.activatePage(slug);
-    this.props.loadPage(slug);
+    // this.props.activatePage(slug);
+    // this.props.loadPage(slug);
     this.context.router.transitionTo('/page/' + slug);
   }
 

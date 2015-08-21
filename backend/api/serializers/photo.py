@@ -8,4 +8,4 @@ class PhotoSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = Photo
-        fields = (name', 'slug', 'image')
+        fields = ('name', 'slug', 'image')

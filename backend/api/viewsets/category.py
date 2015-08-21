@@ -16,4 +16,4 @@ class CategoryViewSet(MultiSerializerViewSet):
     }
 
     lookup_field = 'slug'
-    lookup_value_regex = '[0-9a-z_]+'
+    lookup_value_regex = '[0-9a-z\-_]+'

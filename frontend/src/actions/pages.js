@@ -12,6 +12,7 @@ export function loadPages() {
 }
 
 export function loadPage(slug) {
+  // TODO: add caching
   return {
     types: [PAGE_LOAD, PAGE_LOAD_SUCCESS, PAGE_LOAD_FAIL],
     promise: (client) => client.get(`/pages/${slug}.json`)

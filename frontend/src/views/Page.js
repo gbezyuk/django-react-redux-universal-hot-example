@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {loadPage} from '../actions/pages';
 
 @connect(state => ({content: state.pages.active_page_content}))
 export default class Page extends React.Component {
@@ -8,13 +9,9 @@ export default class Page extends React.Component {
     store: React.PropTypes.object.isRequired
   };
 
-  static fetchData(store) {
+  static fetchData(store, routerParams) {
     const promises = [];
-    let page_slug = this.context.router.getParams().page_slug;
-    console.log(page_slug);
-    if (!isPageLoaded(store.getState())) {
-      promises.push(store.dispatch(loadPage(page_slug)));
-    }
+    promises.push(store.dispatch(loadPage(routerParams.page_slug)));
     return Promise.all(promises);
   }
 

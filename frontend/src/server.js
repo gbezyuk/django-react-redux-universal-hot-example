@@ -7,7 +7,6 @@ import compression from 'compression';
 import httpProxy from 'http-proxy';
 import path from 'path';
 import createStore from './redux/create';
-import api from './api/api';
 import ApiClient from './ApiClient';
 import universalRouter from './universalRouter';
 import Html from './Html';
@@ -15,24 +14,32 @@ import PrettyError from 'pretty-error';
 
 const pretty = new PrettyError();
 const app = new Express();
-const proxy = httpProxy.createProxyServer({
+const api_proxy = httpProxy.createProxyServer({
   target: 'http://localhost:' + config.apiPort + '/api/'
 });
+
+const admin_proxy = httpProxy.createProxyServer({
+  target: 'http://localhost:' + config.apiPort + '/admin/'
+});
+
+const static_proxy = httpProxy.createProxyServer({
+  target: 'http://localhost:' + config.apiPort + '/static/'
+});
+
+const media_proxy = httpProxy.createProxyServer({
+  target: 'http://localhost:' + config.apiPort + '/media/'
+});
+
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
 app.use(require('serve-static')(path.join(__dirname, '..', 'static')));
 
-// Proxy to API server
-app.use('/api', (req, res) => {
-  proxy.web(req, res);
-});
-
-// Proxy to Admin server
-// app.use('/admin', (req, res) => {
-//   proxy.web(req, res);
-// });
+app.use('/api', (req, res) => { api_proxy.web(req, res); });
+app.use('/admin', (req, res) => { admin_proxy.web(req, res); });
+app.use('/static', (req, res) => { static_proxy.web(req, res); });
+app.use('/media', (req, res) => { media_proxy.web(req, res); });
 
 
 app.use((req, res) => {
