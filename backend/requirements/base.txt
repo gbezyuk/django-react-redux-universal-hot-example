@@ -1,7 +1,6 @@
 Django==1.8.4
 django-extensions==1.5.5
 django-model-utils==2.3.1
-django-ordered-model==0.4.2
 django-filebrowser==3.5.7
 django-grappelli==2.7.1
 django-ordered-model==0.4.2
